@@ -161,37 +161,42 @@ router.delete('/usuarios/:id_usuario', async(req, res)=>{
    
 })
 
-router.post('/login', async(req, res) => {
-    const {email, senha} = req.body
-    
-    if(!email || ! !senha){
-        return res.status(400).json({message: 'campo obrigatorio vago!'})
+router.post('/login', async (req, res) => {
+    const { email, senha } = req.body;
+
+    if (!email || !senha) {
+        return res.status(400).json({ message: 'campo obrigatorio vago!' });
     }
+
     try {
-         const comando = 'SELECT id_usuario, nome, email, senha FROM USUARIOS WHERE email = $1'
-if(resultado.rows.lengt === 0) {
-    return res.statusCode(401).json({message: 'email nao encontrado'})
-}
+        const comando = 'SELECT id_usuario, nome, email, senha FROM usuarios WHERE email = $1';
+        const resultado = await BD.query(comando, [email]);
 
-    const usuario = resultado.rows[0]
+        if (resultado.rows.length === 0) {
+            return res.status(401).json({ message: 'email nao encontrado' });
+        }
 
-    if(usuario.senha !== senha){
+        const usuario = resultado.rows[0];
+
+        if (usuario.senha !== senha) {
+            return res.status(401).json({ message: 'senha incorreta' });
+        }
+
         return res.status(200).json({
-            message: "sucesso",
-            usuario:{
-                id:usuario.id_usuario,
+            message: "login realizado com sucesso",
+            usuario: {
+                id: usuario.id_usuario,
                 nome: usuario.nome,
                 email: usuario.email
             }
-        })
-    }
+        });
 
     } catch (error) {
-     console.error('erro ao deletar usuario', error.message)
-        return res.status(500).json({message: "erro interno no servidor" + error.message})   
+        console.error('erro no login', error.message);
+        return res.status(500).json({ message: "erro interno no servidor" });
     }
+});
 
 
-})
 
 export default router

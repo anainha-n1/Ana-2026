@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { estilos } from "../Style/estilos"
 import Aula13_usuario from "./Aula13_Usuarios"
-
+import { enderecoServidor } from "../utils"
 
 
 
@@ -21,13 +21,13 @@ const Aula13_CRUD_Usuario = () => {
     ])
 
 
-    function alterar(usuarios){
+    function alterar(usuarios) {
         setNome(usuarios.nome)
         setemail(usuarios.email)
         setsenha(usuarios.senha)
         seteditando(true)
         setid(usuarios.id_usuario)
-       
+
     }
 
     async function adicionar() {
@@ -39,7 +39,7 @@ const Aula13_CRUD_Usuario = () => {
         }
 
         try {
-            let endpoint = "http://localhost:3001/usuarios"
+            let endpoint = `${enderecoServidor}/usuarios`
             let metodo = 'POST'
 
             if (editando == true) {
@@ -61,18 +61,18 @@ const Aula13_CRUD_Usuario = () => {
 
             buscarDados()
             LimparCamposFormularios()
-           
+
         } catch (error) {
             console.error('erro ao adicionar usuario', error.message)
         }
 
-       
+
 
 
     }
 
     async function excluir(id) {
-       
+
         if (!window.confirm("voce tem certeza que deseja excluir?")) return
 
         try {
@@ -85,13 +85,13 @@ const Aula13_CRUD_Usuario = () => {
             }
 
             buscarDados()
-           
-           
+
+
         } catch (error) {
             console.error('erro ao adicionar produto', error.message)
         }
 
-       
+
     }
 
     function LimparCamposFormularios() {
@@ -134,7 +134,7 @@ const Aula13_CRUD_Usuario = () => {
                 <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
                     {
                         usuarios.map((usuario, pos) => (
-                            <Aula13_usuario key={pos} usuario={usuario} excluir={excluir} alterar={alterar}  />
+                            <Aula13_usuario key={pos} usuario={usuario} excluir={excluir} alterar={alterar} />
                         ))
                     }
                 </div>

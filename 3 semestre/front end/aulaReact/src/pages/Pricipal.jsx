@@ -13,9 +13,11 @@ import Aula11 from "../component/Aula11";
 import Aula12 from "../component/Aula12";
 import Aula13 from "../component/Aula13";
 import Aula14 from "../component/Aula14";
+
 import Cabecalho from "../component/Cabecalho";
 
 import { estilos } from "../Style/estilos";
+import Aula15 from "../component/Aula15";
 
 
 const Principal = () => {
@@ -39,6 +41,7 @@ const Principal = () => {
           <Aula12 />
           <Aula13 />
           <Aula14 />
+          <Aula15 />
         </div>
       </main>
 

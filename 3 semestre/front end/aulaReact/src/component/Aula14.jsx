@@ -24,8 +24,10 @@ const Aula14 = () => {
             <h3>useParams</h3>
             <button onClick={() => Navigate('/perfil/Ricardo')}>perfil do Ricardo</button>
             <button onClick={() => Navigate('/perfil/Douglas')}>perfil do Douglas</button>
-
-
+            <hr />
+            <Link to="/inicio">inicio</Link>
+            <hr />
+            <button onClick={() => Navigate('/filme/filme1')}>sobre</button>
 
         </div>
     )
