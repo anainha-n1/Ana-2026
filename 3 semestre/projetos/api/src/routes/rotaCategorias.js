@@ -1,8 +1,10 @@
 import express, { Router } from 'express'
 import { BD } from '../../db.js'
+import { autenticarToken } from '../middlewares/autenticacao.js'
+import jwt from 'jsonwebtoken'
 const router = Router()
 
-router.get('/categorias', async (req, res) => {
+router.get('/categorias', autenticarToken, async (req, res) => {
     try {
 
         const query = `SELECT * FROM categorias where ativo = true ORDER BY id_categoria`
@@ -17,7 +19,7 @@ router.get('/categorias', async (req, res) => {
     }
 })
 
-router.post('/categorias', async (req, res) => {
+router.post('/categorias', autenticarToken ,async (req, res) => {
     const { nome, descricao, tipo, cor, icone } = req.body
 
     console.log(nome);
@@ -39,7 +41,7 @@ router.post('/categorias', async (req, res) => {
 
 })
 
-router.put('/categorias/:id_categoria', async (req, res) => {
+router.put('/categorias/:id_categoria', autenticarToken, async (req, res) => {
 
     const { id_categoria } = req.params;
 
@@ -63,7 +65,7 @@ router.put('/categorias/:id_categoria', async (req, res) => {
     }
 })
 
-router.delete('/categorias/:id_categoria', async (req, res) => {
+router.delete('/categorias/:id_categoria', autenticarToken, async (req, res) => {
     const { id_categoria } = req.params
     try {
         const comando = `update categorias set ativo = false where id_categoria = $1`

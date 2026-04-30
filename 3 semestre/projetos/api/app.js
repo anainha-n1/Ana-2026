@@ -1,6 +1,9 @@
 import express from 'express';
 import { BD, testarConexao } from "./db.js";
-import rotaUsuarios from './src/routes/rotaUsuarios.js'
+import rotaUsuarios from './src/routes/rotaUsuarios.js';
+import rotaCategorias from './src/routes/rotaCategorias.js';
+import rotaSubcategorias from './src/routes/rotaSubcategorias.js'
+import rotaTransacoes from './src/routes/rotaTransacoes.js'
 //usando swwager
 import swaggerUi from 'swagger-ui-express'
 import documentacao from './config/swagger.js';
@@ -18,6 +21,9 @@ app.get('/', async (req, res) => {
     res.redirect('/swagger')
 })
 app.use(rotaUsuarios)
+app.use(rotaTransacoes)
+app.use(rotaCategorias)
+app.use(rotaSubcategorias)
 
 
 const porta = 3002

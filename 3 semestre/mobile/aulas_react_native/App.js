@@ -1,13 +1,27 @@
 import express, { Router } from 'express'
 import { BD } from '../../db.js'
-import { autenticarToken } from '../middlewares/autenticacao.js'
-import jwt from 'jsonwebtoken'
 const router = Router()
 
-router.get('/transacoes', autenticarToken, async (req, res) => {
+router.get('/transacoes', async (req, res) => {
     try {
         //cria uma variavel para enviar o comando sql
-        const query = `SELECT * FROM transacoes ORDER BY id_transacoes`
+        const query = `SELECT
+        t.id_transacoes,
+        t.valor,
+        t.descricao,
+        TO_CHAR(t.data_registro, 'DD/MM/YYYY') AS data_registro,
+        TO_CHAR(t.data_vencimento, 'DD/MM/YYYY') AS data_vencimento,
+        TO_CHAR(t.data_pagamento, 'DD/MM/YYYY') AS data_pagamento,
+        t.tipo,
+        c.nome AS categoria,
+        s.nome AS subcategoria
+    FROM transacoes t
+    LEFT JOIN categorias c
+        ON t.id_categoria = c.id_categoria
+    LEFT JOIN subcategorias s
+        ON t.id_subcategoria = s.id_subcategoria
+    ORDER BY t.id_transacoes
+`
         //cria uma variavel para reveber o retorno no sql
         const transacoes = await BD.query(query);
 
@@ -17,11 +31,11 @@ router.get('/transacoes', autenticarToken, async (req, res) => {
 
     } catch (error) {
         console.error('Erro ao listar transacoes', error.message)
-        return res.status(500).json({ error: 'Erro ao listar transacoes' })
+        return res.status(500).json({ error: 'Erro ao listar transacoes' + error.message })
     }
 })
 
-router.post('/transacoes', autenticarToken, async (req, res) => {
+router.post('/transacoes', async (req, res) => {
     const { valor, descricao, data_vencimento, tipo, data_pagamento, id_categoria, id_subcategoria } = req.body
 
     console.log(valor);
@@ -44,7 +58,7 @@ router.post('/transacoes', autenticarToken, async (req, res) => {
 
 })
 
-router.put('/transacoes/:id_transacoes', autenticarToken, async (req, res) => {
+router.put('/transacoes/:id_transacoes', async (req, res) => {
     //id recebido via parametro
     const { id_transacoes } = req.params;
     //dados de transacao recebido via corpo da pagina
@@ -68,7 +82,7 @@ router.put('/transacoes/:id_transacoes', autenticarToken, async (req, res) => {
     }
 })
 
-router.delete('/transacoes/:id_transacoes', autenticarToken, async (req, res) => {
+router.delete('/transacoes/:id_transacoes', async (req, res) => {
     const { id_transacoes } = req.params
     try {
         //executa o comando de delete
