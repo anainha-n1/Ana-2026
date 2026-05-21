@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "lista_compras",
-    "slug": "lista_compras",
+    "name": "FinanControl",
+    "slug": "FinanControl",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -20,16 +20,10 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true,
-      "package": "com.ana.b.lista_compras"
+      "edgeToEdgeEnabled": true
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    },
-    "extra": {
-      "eas": {
-        "projectId": "1788af0a-cc4b-4b25-8053-2d265f1ce2cf"
-      }
     }
   }
 }

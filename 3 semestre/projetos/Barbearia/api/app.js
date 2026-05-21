@@ -1,10 +1,10 @@
 import express from 'express';
 import { BD, testarConexao } from "./db.js";
 import rotaUsuarios from './src/routes/rotaUsuarios.js';
-import rotaCategorias from './src/routes/rotaCategorias.js';
-import rotaSubcategorias from './src/routes/rotaSubcategorias.js'
-import rotaTransacoes from './src/routes/rotaTransacoes.js'
-//usando swwager
+import rotaServico from './src/routes/rotaServico.js'
+import rotaAgendamentos from './src/routes/rotaAgendamentos.js'
+
+
 import swaggerUi from 'swagger-ui-express'
 import documentacao from './config/swagger.js';
 import cors from 'cors'
@@ -17,16 +17,13 @@ app.use(cors())
 
 app.get('/', async (req, res) => {
     await testarConexao();
-    // res.status(200).json('Api funcionando')
     res.redirect('/swagger')
 })
 app.use(rotaUsuarios)
-app.use(rotaTransacoes)
-app.use(rotaCategorias)
-app.use(rotaSubcategorias)
+app.use(rotaAgendamentos)
+app.use(rotaServico)
 
-
-const porta = 3002
+const porta = 3003
 app.listen(porta, () => {
     console.log(`http://localhost:${porta}`);
 

@@ -531,6 +531,39 @@ const documentacao = {
           }
         }
       }
+    },
+    "/transacoes/total":{
+      get: {
+        tags: ["Transacoes"],
+        summary: "Listar todos as transacoes",
+        description: 'retorna a soma de todos os valores com base no tipo informado (E/S)',
+        // security: [
+        //   {bearerAuth: []}
+        // ],
+        parameters:[{
+          name: "tipo",
+          in: 'query',
+          required: true,
+          description: 'tipo de transação ENTRADA e SAIDA',
+          schema:{
+            type: "string", enum: ["ENTRADA", "SAIDA"]
+          },
+          example: "ENTRADA"
+        }],
+        responses: {
+          200: {
+            description: "Dados obtidos com sucesso",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "array",
+                  items: { $ref: "#/components/schemas/total_Transacoes" }
+                }
+              }
+            }
+          }
+        }
+      },
     }
   },
 
@@ -711,6 +744,17 @@ const documentacao = {
           tipo: {type: 'string', enum:['E', 'S'], example: 'E'},
           id_categoria: {type: 'integer', example: '1'},
           id_subcategoria: {type: 'integer', example: '1'}
+        }
+      },
+      Total_Transacoes:{
+        type: "object",
+        properties:{
+          total:{
+            type:'number',
+            format:'float',
+            example: 1550.10,
+            description: 'Soma total dos valores das transacoes filtradas'
+          }
         }
       },
     }

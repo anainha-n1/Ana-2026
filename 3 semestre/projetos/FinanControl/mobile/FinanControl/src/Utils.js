@@ -1,0 +1,1 @@
+export const enderecoServiso = 'http://localhost:3000/'

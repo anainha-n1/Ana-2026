@@ -1,0 +1,15 @@
+import { View, Text, FlatList } from "react-native";
+import Hr from './Hr'
+
+const Aula5 = () => {
+    return (
+        <View>
+            <Hr />
+            <Text>Aula 5</Text>
+            <Text>Stack no app</Text>
+            <Hr />
+        </View>
+    )
+}
+
+export default Aula5

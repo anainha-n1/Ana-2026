@@ -71,7 +71,30 @@ const Estilos = StyleSheet.create({
         fontSize: 16,
         color: corPlaceholder,
         textDecorationLine: 'line-through'
+    },
+    viewContadores:{
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginVertical: 7
+    },
+    contador1:{
+        fontWeight: 'bold',
+        color: corPrincipal,
+
+    },
+    contador2:{
+        fontWeight: 'bold',
+        color: corSegundaria,
+
+    },
+    numero:{
+        color: corTextos,
+        backgroundColor: corPlaceholder,
+        fontWeight: 'bold',
+        paddingHorizontal: 8,
+        borderRadius: 50
     }
+
 })
 
 export default Estilos
