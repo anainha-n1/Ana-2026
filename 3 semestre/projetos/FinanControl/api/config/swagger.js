@@ -9,6 +9,10 @@ const documentacao = {
     {
       url: "http://localhost:3002",
       description: "localhost"
+    },
+    {
+      url: "https://api-tau-blush-67.vercel.app/",
+      description: "localhost"
     }
   ],
   tags: [
